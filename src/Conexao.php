@@ -40,16 +40,12 @@ class Conexao {
         return $sucesso;
     }
     
-    static function desconectar() {
-    
-        session_destroy();
-    }
-
     static function getConexao() {
         return Conexao::$conn;
     }
     
     function __destruct(){
         Conexao::$conn = NULL;
+        session_destroy();
     }
 }

@@ -4,7 +4,7 @@
  *
  */
 
-require 'TimeCapsuleDAO';
+require './TimeCapsuleDAO.php';
 
 class TimeCapsuleModel {
     private $name;

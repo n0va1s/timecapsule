@@ -15,34 +15,43 @@ class TimeCapsuleDAO {
     
     public function inserir(TimeCapsuleModel $timecapsule) {
     	
-        $this->sql = $this->conn->prepare("insert into message (nam_message,
-                                                                dat_message,
-                                                                eml_message,
-                                                                tel_message)
-                                                        values (?,?,?,?)");
-                                         
-        return $this->sql->execute($timecapsule->getName(),
-                                   $timecapsule->getDate(),
-                                   $timecapsule->getEmail(),
-                                   $timecapsule->getMessage());
-                      
+        try {
+        
+            $this->sql = $this->conn->prepare("insert into message (nam_message,
+                                                                    dat_message,
+                                                                    eml_message,
+                                                                    tel_message,
+                                                                    txt_message)
+                                                            values (:name,
+                                                                    :date,
+                                                                    :email,
+                                                                    :phone,
+                                                                    :message)");
+
+            $this->sql->bindValue(":name", $timecapsule->getName());
+            $this->sql->bindValue(":date", $timecapsule->getDate());
+            $this->sql->bindValue(":email", $timecapsule->getEmail());
+            $this->sql->bindValue(":phone", $timecapsule->getPhone());
+            $this->sql->bindValue(":message", $timecapsule->getMessage());
+
+            return $this->sql->execute();
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar gravar a mensagem,tente novamente mais tarde.";
+            print $e->getMessage();
+        }
     }
     
     public function consultarParaEnvio() {
+        try {
+            
+            $this->sql = $this->conn->prepare("select * from message m where m.ind_enviado = 'N'");
         
-        $sql = "select *
-                  from message m
-                where ind_enviado = 'N'";
-        
-        return self::query($sql, $escolaContato);
-        
-        $this->sql = $this->conn->prepare("select * from message)
-                                                  values (?,?,?,?)");
-                                         
-        return $this->sql->execute($timecapsule->getName(),
-                                   $timecapsule->getDate(),
-                                   $timecapsule->getEmail(),
-                                   $timecapsule->getMessage());
+            return $this->sql->execute();
+            
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar consultar as mensagens a serem enviadas";
+            print $e->getMessage();
+        }
     }
     
     function __destruct() {

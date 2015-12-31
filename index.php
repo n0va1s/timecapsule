@@ -21,7 +21,7 @@
     <section>
       <h1>Cápsula do Tempo</h1>
       <h2>time capsule</h2>
-      <form id="form-contact" action="./src/TimeCapsuleView.php" method="post">
+      <form id="form-contact" action="./src/TimeCapsuleView.php" method="POST">
         <div class="input">
           <label for="name">Nome</label>
           <input type="text" id="name" name="name" placeholder="Como quer ser chamado" required>
