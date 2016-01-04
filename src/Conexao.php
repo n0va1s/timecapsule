@@ -5,33 +5,27 @@
 
 class Conexao {
 
-    private $SGBD;
-    private $usuario;
-    private $senha;
-    private $servidor;
-    private $banco;
+    const SGBD = "mysql";
+    const usuario = "usrcapsule";
+    const senha = "capsuleusr";
+    const servidor = "localhost";
+    const banco = "capsule";
 
     static $conn;
 
-    function __construct(){
-        $this->SGBD = "mysql";
-        $this->usuario = "usrcapsule";
-        $this->senha = "capsuleusr";
-        $this->servidor = "localhost";
-        $this->banco = "capsule";
-    }
-    
     static function conectar() {
 
-        $DSN = "$this->SGBD:host=$this->servidor;dbname=$this->banco";
+
+
+        $DSN = self::SGBD+":host="+self::servidor+";dbname="+self::banco;
 
         try {
             session_start();
-            Conexao::$conn = new PDO($DSN, $this->usuario, $this->senha);
+            Conexao::$conn = new PDO($DSN, self::usuario, self::senha);
             $sucesso = true;
 
         } catch (PDOException $e) {
-            
+
             echo $e->getMessage();
             session_destroy();
             $sucesso = false;
@@ -39,11 +33,11 @@ class Conexao {
 
         return $sucesso;
     }
-    
+
     static function getConexao() {
         return Conexao::$conn;
     }
-    
+
     function __destruct(){
         Conexao::$conn = NULL;
         session_destroy();

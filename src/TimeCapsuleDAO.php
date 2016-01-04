@@ -4,6 +4,8 @@
  *
  */
 
+ require './Conexao.php';
+
 class TimeCapsuleDAO {
 
     private $sql;
@@ -12,11 +14,11 @@ class TimeCapsuleDAO {
     function __construct() {
         $this->conn = Conexao::conectar();
     }
-    
+
     public function inserir(TimeCapsuleModel $timecapsule) {
-    	
+
         try {
-        
+
             $this->sql = $this->conn->prepare("insert into message (nam_message,
                                                                     dat_message,
                                                                     eml_message,
@@ -40,20 +42,20 @@ class TimeCapsuleDAO {
             print $e->getMessage();
         }
     }
-    
+
     public function consultarParaEnvio() {
         try {
-            
+
             $this->sql = $this->conn->prepare("select * from message m where m.ind_enviado = 'N'");
-        
+
             return $this->sql->execute();
-            
+
         } catch (Exception $e) {
             print "Ocorreu um erro ao tentar consultar as mensagens a serem enviadas";
             print $e->getMessage();
         }
     }
-    
+
     function __destruct() {
         Conexao::desconectar();
     }
