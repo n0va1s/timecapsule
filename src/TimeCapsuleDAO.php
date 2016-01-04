@@ -1,10 +1,6 @@
 <?php
-/*
- * Copyright (c) 2015 Joao Paulo Cirino Silva de Novais <joaopaulonovais@gmail.com>
- *
- */
 
- require './Conexao.php';
+require_once './Conexao.php';
 
 class TimeCapsuleDAO {
 

@@ -1,8 +1,4 @@
 <?php
-/*
- * Copyright (c) 2011 Joao Paulo Cirino Silva de Novais <joaopaulonovais@gmail.com>
- *
- */
 
 require './TimeCapsuleDAO.php';
 
@@ -19,15 +15,16 @@ class TimeCapsuleModel {
     }
     
     public function setName($name) {
-
+//TODO: Mover para uma classe Validator
+//TODO: isRequired, isNumeric, isText, isPhone, isEmail, isValid, isDate
         if (!isset($name)) {
         
-            Mensagem::setMessage("Informe o nome");
+            echo "Informe o nome";
         } 
         
         if (len($name) < 5) {
 
-            Mensagem::setMessage("O nome precisa ter ao menos 5 letras");
+            echo "O nome precisa ter ao menos 5 letras";
         }
         
         $this->name = upper($name);
@@ -37,12 +34,12 @@ class TimeCapsuleModel {
 
         if (!isset($phone)) {
         
-            Mensagem::setMessage("Informe o telefone");
+            echo "Informe o telefone";
         }
         
         if (len($phone) < 10) {
 
-            Mensagem::setMessage("O telefone precisa ter ao menos 10 números");
+            echo "O telefone precisa ter ao menos 10 números";
         }
         
         $this->phone = strreplace($phone, "-", null);
@@ -52,12 +49,12 @@ class TimeCapsuleModel {
 
         if ($email == "") {
         
-            Mensagem::setMessage("Informe o email");
+            echo "Informe o email";
         }
         
         if (instr($email, "@")) {
 
-            Mensagem::setMessage("O email não é válido");
+            echo "O email não é válido";
         }
         
         $this->email = upper($email);
@@ -67,12 +64,12 @@ class TimeCapsuleModel {
 
         if ($date == "") {
         
-            Mensagem::setMessage("Informe a data do envio");
+            echo "Informe a data do envio";
         }
         
         if (len($date) < 10) {
 
-            Mensagem::setMessage("A data precisa ter ao menos 8 números");
+            echo "A data precisa ter ao menos 8 números";
         }
         
         $this->date = strreplace($date, "/", null);

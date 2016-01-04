@@ -1,7 +1,4 @@
 <?php
-/*
- * Copyright (c) 2015 Joao Paulo Cirino Silva de Novais <joaopaulonovais@gmail.com>
- */
 
 class Conexao {
 
@@ -15,31 +12,27 @@ class Conexao {
 
     static function conectar() {
 
-
-
-        $DSN = self::SGBD+":host="+self::servidor+";dbname="+self::banco;
+        $DSN = "self::SGBD:host=self::servidor;dbname=self::banco;"
 
         try {
-            session_start();
+
             Conexao::$conn = new PDO($DSN, self::usuario, self::senha);
-            $sucesso = true;
+            return true;
 
         } catch (PDOException $e) {
 
             echo $e->getMessage();
             session_destroy();
-            $sucesso = false;
+            return false;
         }
-
-        return $sucesso;
     }
 
     static function getConexao() {
         return Conexao::$conn;
     }
 
-    function __destruct(){
+    static function desconectar(){
+
         Conexao::$conn = NULL;
-        session_destroy();
     }
 }
