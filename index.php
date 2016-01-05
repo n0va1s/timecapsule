@@ -18,5 +18,5 @@ require_once 'src/TimeCapsuleController.php';
     if($pagina) {
        $controller->exibir("$pagina");
     } else {
-        $controller->exibir('index');
+        $controller->exibir('home');
     }

@@ -4,10 +4,11 @@ class TimeCapsuleView
 {
     public function render($pagina) {
 
-        if(file_exists("../assets/$pagina.php")){
-            include "../assets/$pagina.php";
+        $path = "./assets/$pagina.php";
+        if(file_exists($path)){
+            include $path;
         } else {
-            include "../assets/erro.php";
+            include "./assets/erro.php";
         }
     }
 

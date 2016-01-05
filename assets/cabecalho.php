@@ -5,15 +5,15 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Send a message for your I from the future">
     <meta name="author" content="joaopaulonovais@gmail.com">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="./assets/favicon.ico">
 
     <title>Cápsula do tempo (time capsule)</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./vendor/components/bootstrap-default/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="./vendor/components/bootstrap-default/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="starter-template.css" rel="stylesheet">

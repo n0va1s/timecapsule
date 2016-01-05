@@ -7,12 +7,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Cápsula do Tempo (time capsule)</a>
+            <a class="navbar-brand" href="#">Cápsula do Tempo</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Início</a></li>
-                <li><a href="#capsule">Cápsula</a></li>
                 <li><a href="#author">Autores</a></li>
             </ul>
         </div><!--/.nav-collapse -->
