@@ -1,6 +1,6 @@
 <?php
 
-require './TimeCapsuleDAO.php';
+require 'TimeCapsuleDAO.php';
 
 class TimeCapsuleModel {
     private $name;
@@ -11,7 +11,7 @@ class TimeCapsuleModel {
         
     function __construct() {
         
-        $timeCapsuleDAO = new TimeCapsuleDAO();
+        $this->timeCapsuleDAO = new TimeCapsuleDAO();
     }
     
     public function setName($name) {
@@ -22,12 +22,12 @@ class TimeCapsuleModel {
             echo "Informe o nome";
         } 
         
-        if (len($name) < 5) {
+        if (lenght($name) < 5) {
 
             echo "O nome precisa ter ao menos 5 letras";
         }
         
-        $this->name = upper($name);
+        $this->name = $name;
     }
     
     public function setPhone($phone) {
@@ -57,7 +57,7 @@ class TimeCapsuleModel {
             echo "O email não é válido";
         }
         
-        $this->email = upper($email);
+        $this->email = $email;
     }
     
     public function setDate($date) {

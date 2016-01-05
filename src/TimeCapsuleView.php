@@ -2,11 +2,16 @@
 
 class TimeCapsuleView
 {
-    public function render($html) {
-        $_GET($html);
+    public function render($pagina) {
+
+        if(file_exists("../assets/$pagina.php")){
+            include "../assets/$pagina.php";
+        } else {
+            include "../assets/erro.php";
+        }
     }
 
     public function show($message) {
-        print_r($message);
+        return print_r($message);
     }
 }

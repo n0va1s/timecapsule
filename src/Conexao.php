@@ -12,7 +12,7 @@ class Conexao {
 
     static function conectar() {
 
-        $DSN = "self::SGBD:host=self::servidor;dbname=self::banco;"
+        $DSN = "self::SGBD:host=self::servidor;dbname=self::banco;";
 
         try {
 
