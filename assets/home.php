@@ -5,47 +5,52 @@
 <?php include 'menu.php' ?>
 <div class="jumbotron">
   <center><h2>Envie uma mensagem para o seu <abbr>EU</abbr> do futuro.</h2>
-  <blockquote>&nbsp;&nbsp;&nbsp;&nbsp;Esta é uma ideia simples criada nas férias de 2015 para contar belas histórias, conectar pessoas e nos permitir pensar no futuro...<br /> imagine receber uma mensagem escrita por você ou por alguém muito querido há 20 anos atrás com as suas expectativas, medos e desejos;<br />
+  <blockquote>&nbsp;&nbsp;&nbsp;&nbsp;Esta é uma ideia simples criada nas férias
+     de 2015 para contar belas histórias, conectar pessoas e nos permitir pensar
+     no futuro...<br /> imagine receber uma mensagem escrita por você ou por
+     alguém muito querido há 20 anos atrás com as suas expectativas, medos e
+     desejos;<br />
 talvez enviar uma dia para um filho, um amigo ou um parente querido.<br />
 Então, vejo você no futuro!
   </blockquote></center>
 </div>
 <div class="container">
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" action="./index.php" method="get">
     <div class="form-group form-group-lg">
         <label for="name" class="col-sm-2 control-label">Nome</label>
         <div class="col-sm-7">
-            <input class="form-control" id="name" type="text" value="Como quer ser chamado">
+            <input class="form-control" name="name" type="text" placeholder="Como quer ser chamado">
         </div>
     </div>
     <div class="form-group form-group-lg">
         <label for="email" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-6">
-          <input class="form-control" id="email" type="text" value="Para enviarmos a mensagem">
+          <input class="form-control" name="email" type="text" placeholder="Para enviarmos a mensagem">
         </div>
     </div>
     <div class="form-group form-group-lg">
         <label for="date" class="col-sm-2 control-label">Data</label>
         <div class="col-sm-3">
-          <input class="form-control" id="date" type="text" value="Para abrir a cápsula">
+          <input class="form-control" name="date" type="text" placeholder="Para abrir a cápsula">
         </div>
     </div>
     <div class="form-group form-group-lg">
         <label for="phone" class="col-sm-2 control-label">Telefone</label>
         <div class="col-sm-3">
-          <input class="form-control" id="phone" type="text" value="Se o email não existir">
+          <input class="form-control" name="phone" type="text" placeholder="Se o email não existir">
         </div>
     </div>
     <div class="form-group form-group-lg">
         <label for="phone" class="col-sm-2 control-label">Mensagem</label>
         <div class="col-sm-7">
-            <textarea class="form-control" rows="3" id="message" placeholder="Inspire-se e escreva sua mensagem"></textarea>
+            <textarea class="form-control" rows="3" name="message" placeholder="Inspire-se e escreva sua mensagem"></textarea>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-7 col-sm-5">
             <button type="reset" class="btn btn-default btn-lg">Limpar</button>
             <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+            <input type="hideen" name="acao" value="confirmar">
         </div>
     </div>
 </form>

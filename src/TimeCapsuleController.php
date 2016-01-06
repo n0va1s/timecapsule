@@ -16,20 +16,20 @@ class TimeCapsuleController
         $this->view->render($pagina);
     }
 
-    public function fecharCapsula(){
-        $model = new TimeCapsuleModel();
-        $model->setName(isset($_POST["name"]) ? $_POST["name"] : "");
-        $model->setDate(isset($_POST["date"]) ? $_POST["date"] : "");
-        $model->setEmail(isset($_POST["email"]) ? $_POST["email"] : "");
-        $model->setPhone(isset($_POST["phone"]) ? $_POST["phone"] : "");
-        $model->setMessage(isset($_POST["message"]) ? $_POST["message"] : "");
+    public function lacrar(){
 
+        $model = new TimeCapsuleModel();
+        $model->setName(isset($_GET["name"]) ? $_GET["name"] : "");
+        $model->setDate(isset($_GET["date"]) ? $_GET["date"] : "");
+        $model->setEmail(isset($_GET["email"]) ? $_GET["email"] : "");
+        $model->setPhone(isset($_GET["phone"]) ? $_GET["phone"] : "");
+        $model->setMessage(isset($_GET["message"]) ? $_GET["message"] : "");
         $sucesso = $model->gravar($model);
 
         if($sucesso){
-            $this->sucesso();
+            $this->exibir("sucesso");
         } else {
-            $this->erro();
+            $this->exibir("erro");
         }
     }
 

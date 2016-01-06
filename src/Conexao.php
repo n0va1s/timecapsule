@@ -11,18 +11,12 @@ class Conexao {
     static $conn;
 
     static function conectar() {
-
-        $DSN = "self::SGBD:host=self::servidor;dbname=self::banco;";
-
+        $DSN = self::SGBD.":host=".self::servidor.";dbname=".self::banco.";";
         try {
-
-            Conexao::$conn = new PDO($DSN, self::usuario, self::senha);
-            return true;
-
+            $conn = new PDO($DSN, self::usuario, self::senha);
+            return $conn;
         } catch (PDOException $e) {
-
             echo $e->getMessage();
-            session_destroy();
             return false;
         }
     }
@@ -32,7 +26,6 @@ class Conexao {
     }
 
     static function desconectar(){
-
         Conexao::$conn = NULL;
     }
 }

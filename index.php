@@ -13,10 +13,12 @@ require_once 'src/TimeCapsuleController.php';
 */
 
     $controller = new TimeCapsuleController();
-    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : '';
+    $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
-    if($pagina) {
-       $controller->exibir("$pagina");
+    if($acao == "confirmar") {
+        $controller->exibir("confirmacao");
+    } elseif ($acao == "lacrar") {
+        $controller->lacrar();
     } else {
-        $controller->exibir('home');
+        $controller->exibir("home");
     }

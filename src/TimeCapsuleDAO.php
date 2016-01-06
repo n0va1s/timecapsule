@@ -33,7 +33,6 @@ class TimeCapsuleDAO {
 
     public function consultarParaEnvio() {
         try {
-
             $this->sql = $this->conn->prepare("select *
                                                  from message m
                                               where dat_message <= '2015-01-01'
