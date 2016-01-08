@@ -3,43 +3,38 @@
 <?php include 'cabecalho.php' ?>
 <body>
 <?php include 'menu.php' ?>
-<div class="jumbotron">
-  <center><h2>Envie uma mensagem para o seu <abbr>EU</abbr> do futuro.</h2>
-  <blockquote>&nbsp;&nbsp;&nbsp;&nbsp;Esta é uma ideia simples criada nas férias de 2015 para contar belas histórias, conectar pessoas e nos permitir pensar no futuro...<br /> imagine receber uma mensagem escrita por você ou por alguém muito querido há 20 anos atrás com as suas expectativas, medos e desejos;<br />
-talvez enviar uma dia para um filho, um amigo ou um parente querido.<br />
-Então, vejo você no futuro!
-  </blockquote></center>
-</div>
-<div class="container">
-<form class="form-horizontal" role="form" action="./index.php" method="get">
+<?php include 'apresentacao.php' ?>
+<!-- Capsula -->
+<div class="container-fluid bg-3 text-center">    
+  <form class="form-horizontal" role="form" action="./index.php" method="post">
     <div class="form-group form-group-lg">
         <label for="name" class="col-sm-2 control-label">Nome</label>
         <div class="col-sm-7">
-           <input class="form-control" name="name" type="text" value="<?php echo $_GET["name"]?>">
+            <input class="form-control" name="name" type="text" value="<?php echo $_POST["name"]?>" readonly="true">
         </div>
     </div>
     <div class="form-group form-group-lg">
         <label for="email" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-6">
-           <input class="form-control" name="email" type="text" value="<?php echo $_GET["email"] ?>">
+          <input class="form-control" name="email" type="text" value="<?php echo $_POST["email"]?>" readonly="true">
         </div>
     </div>
     <div class="form-group form-group-lg">
         <label for="date" class="col-sm-2 control-label">Data</label>
         <div class="col-sm-3">
-           <input class="form-control" name="date" type="text" value="<?php echo $_GET["date"] ?>">
+          <input class="form-control" name="date" type="text" value="<?php echo $_POST["date"]?>" readonly="true">
         </div>
     </div>
     <div class="form-group form-group-lg">
         <label for="phone" class="col-sm-2 control-label">Telefone</label>
         <div class="col-sm-3">
-           <input class="form-control" name="phone" type="text" value="<?php echo $_GET["phone"] ?>">
+          <input class="form-control" name="phone" type="text" value="<?php echo $_POST["phone"]?>" readonly="true">
         </div>
     </div>
     <div class="form-group form-group-lg">
         <label for="phone" class="col-sm-2 control-label">Mensagem</label>
         <div class="col-sm-7">
-            <input class="form-control" name="message" type="text" value="<?php echo $_GET["message"] ?>">
+            <textarea class="form-control" rows="3" name="message" readonly="true"><?php echo $_POST["message"]?></textarea>
         </div>
     </div>
     <div class="form-group">
@@ -51,14 +46,7 @@ Então, vejo você no futuro!
     </div>
 </form>
 </div>
+<?php include 'autor.php' ?>
 <?php include 'rodape.php' ?>
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="../../dist/js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

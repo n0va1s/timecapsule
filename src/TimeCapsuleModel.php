@@ -16,11 +16,11 @@ class TimeCapsuleModel {
     public function setName($name) {
 //TODO: Mover para uma classe Validator
 //TODO: isRequired, isNumeric, isText, isPhone, isEmail, isValid, isDate
-        $this->name = $name;
+        $this->name = utf8_encode($name);
     }
 
     public function setPhone($phone) {
-        $this->phone = str_replace($phone, "-", null);
+        $this->phone = str_replace(str_replace(str_replace($phone, "-", ""),")",""),"(","");
     }
 
     public function setEmail($email) {
@@ -28,15 +28,19 @@ class TimeCapsuleModel {
     }
 
     public function setDate($date) {
-        $this->date = str_replace($date, "/", null);
+        $dia = substr($date, 0,2);
+        $mes = substr($date, 3,2);
+        $ano = substr($date, 6,4);
+        $date = date_create($ano."-".$mes."-".$dia);
+        $this->date = date_format($date, 'Y-m-d');
     }
 
     public function setMessage($message) {
-        $this->message = isset($message) ? $message : "";
+        $this->message = isset($message) ? utf8_encode($message) : "";
     }
 
     public function getName(){
-        return $this->name;
+        return utf8_decode($this->name);
     }
 
     public function getPhone(){
@@ -51,7 +55,7 @@ class TimeCapsuleModel {
         return $this->date;
     }
     public function getMessage(){
-        return $this->message;
+        return utf8_decode($this->message);
     }
 
     public function gravar() {
