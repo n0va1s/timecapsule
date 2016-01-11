@@ -6,42 +6,42 @@
 <?php include 'apresentacao.php' ?>
 <!-- Capsula -->
 <div class="container-fluid bg-3 text-center">
-  <h3>Confira sua cápsula do tempo</h3>
-  <form class="form-horizontal" role="form" id="frmCapsula" action="./index.php" method="post">
-    <div class="form-group form-group-lg">
-        <label for="name" class="col-sm-2 control-label">Nome</label>
-        <div class="col-sm-6">
-            <input class="form-control" name="name" type="text" value="<?php echo $_POST["name"]?>" readonly="true">
-        </div>
+  <h3>Tudo certo?</h3>
+  <form class="form-horizontal" role="form" id="frmConfirmacao" action="./index.php" method="post">
+    <div class="form-group form-group-lg col-sm-12">
+      <label for="to" class="col-sm-1 control-label">Para</label>
+      <div class="col-sm-4">
+        <input class="form-control" id="to" name="to" type="text" readonly="true" value="<?php echo $_POST["to"] ?>">
+      </div>
+      <label for="from" class="col-sm-1 control-label">De</label>
+      <div class="col-sm-4">
+        <input class="form-control" id="from" name="from" type="text" readonly="true" value="<?php echo $_POST["from"] ?>">
+      </div>
     </div>
-    <div class="form-group form-group-lg">
-        <label for="email" class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-6">
-          <input class="form-control" name="email" type="text" value="<?php echo $_POST["email"]?>" readonly="true">
+    <div class="form-group form-group-lg col-sm-12">
+        <label for="email" class="col-sm-1 control-label">Email</label>
+        <div class="col-sm-4">
+          <input class="form-control" id="email" name="email" type="text" readonly="true" value="<?php echo $_POST["email"] ?>">
         </div>
-    </div>
-    <div class="form-group form-group-lg">
-        <label for="date" class="col-sm-2 control-label">Data</label>
+        <label for="date" class="col-sm-1 control-label">Data</label>
         <div class="col-sm-2">
-          <input class="form-control" name="date" type="text" value="<?php echo $_POST["date"]?>" readonly="true">
+          <input class="form-control" id="date" name="date" type="text" readonly="true" value="<?php echo $_POST["date"] ?>">
         </div>
-    </div>
-    <div class="form-group form-group-lg">
-        <label for="phone" class="col-sm-2 control-label">Telefone</label>
+        <label for="phone" class="col-sm-1 control-label">Celular</label>
         <div class="col-sm-2">
-          <input class="form-control" name="phone" type="text" value="<?php echo $_POST["phone"]?>" readonly="true">
+          <input class="form-control" id="phone" name="phone" type="text" readonly="true" value="<?php echo $_POST["phone"] ?>">
         </div>
     </div>
-    <div class="form-group form-group-lg">
-        <label for="phone" class="col-sm-2 control-label">Mensagem</label>
-        <div class="col-sm-6">
-            <textarea class="form-control" rows="3" name="message" readonly="true"><?php echo $_POST["message"]?></textarea>
+    <div class="form-group form-group-lg col-sm-12">
+        <label for="message" class="col-sm-1 control-label">Mensagem</label>
+        <div class="col-sm-11">
+            <textarea class="form-control" rows="4" id="message" name="message" readonly="true"><?php echo $_POST["message"] ?></textarea>
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-offset-5 col-sm-5">
+        <div class="col-sm-offset-9">
             <button type="reset" id="btnVoltar" class="btn btn-default btn-lg">Voltar</button>
-            <button type="submit" id="btnLacrar" class="btn btn-primary btn-lg">Lacrar</button>
+            <button type="submit" id="bntLacrar" class="btn btn-primary btn-lg">Lacrar</button>
             <input type="hidden" name="acao" value="lacrar">
         </div>
     </div>

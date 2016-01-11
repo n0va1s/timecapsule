@@ -17,9 +17,9 @@ class TimeCapsuleController
     }
 
     public function lacrar(){
-
         $model = new TimeCapsuleModel();
-        $model->setName(isset($_POST["name"]) ? $_POST["name"] : "");
+        $model->setTo(isset($_POST["to"]) ? $_POST["to"] : "");
+        $model->setFrom(isset($_POST["from"]) ? $_POST["from"] : "");
         $model->setDate(isset($_POST["date"]) ? $_POST["date"] : "");
         $model->setEmail(isset($_POST["email"]) ? $_POST["email"] : "");
         $model->setPhone(isset($_POST["phone"]) ? $_POST["phone"] : "");

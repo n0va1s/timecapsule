@@ -7,7 +7,7 @@
 <!-- Lacrada -->
 <div class="container-fluid bg-3 text-center">
   <h3 class="margin">Sucesso! Sua cápsula foi lacrada.</h3>
-  <img src="favicon.ico" class="img-responsive img-circle margin" style="display:inline" alt="Cápsula" width="350" height="350">
+  <img src="assets/img/favicon.ico" class="img-responsive img-circle margin" style="display:inline" alt="Cápsula" width="200" height="200">
   <h3>Ela será enviada no dia combinado! Nos vemos no futuro!</h3>
 </div>
 <?php include 'autor.php' ?>

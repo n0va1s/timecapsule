@@ -6,6 +6,8 @@
   <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <!--[if IE]><link rel="shortcut icon" href="assets/img/favicon.ico"><![endif]-->
+  <link rel="icon" href="assets/img/favicon.ico">
   <!-- Arquivo locais -->
   <script src="assets/js/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"></script>
   <script src="vendor/etdsolutions/jquery.maskedinput/jquery.maskedinput.js" type="text/javascript"></script>
@@ -67,7 +69,7 @@
 
       $("#frmCapsula").validate({
         rules: {
-          name: {
+          to: {
             required: true
           },
           email: {
@@ -82,7 +84,7 @@
           }
         },
         messages: {
-          name:{
+          to:{
             required: "Informe o nome"
           },
           email: {

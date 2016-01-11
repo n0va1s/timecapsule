@@ -13,10 +13,21 @@ class TimeCapsuleDAO {
 
     public function inserir(TimeCapsuleModel $model) {
         try {
-            $this->sql = $this->conn->prepare("insert into message (nam_message,dat_message,eml_message,tel_message,txt_message)
-                                                            values (:nam_message,:dat_message,:eml_message,:tel_message,:txt_message);");
+            $this->sql = $this->conn->prepare("insert into message (nam_to_message,
+                                                                    nam_from_message,
+                                                                    dat_message,
+                                                                    eml_message,
+                                                                    tel_message,
+                                                                    txt_message)
+                                                            values (:nam_to_message,
+                                                                    :nam_from_message,
+                                                                    :dat_message,
+                                                                    :eml_message,
+                                                                    :tel_message,
+                                                                    :txt_message);");
 
-            $this->sql->bindValue(":nam_message", $model->getName());
+            $this->sql->bindValue(":nam_to_message", $model->getTo());
+            $this->sql->bindValue(":nam_from_message", $model->getFrom());
             $this->sql->bindValue(":dat_message", $model->getDate());
             $this->sql->bindValue(":eml_message", $model->getEmail());
             $this->sql->bindValue(":tel_message", $model->getPhone());
@@ -35,7 +46,7 @@ class TimeCapsuleDAO {
         try {
             $this->sql = $this->conn->prepare("select *
                                                  from message m
-                                              where dat_message <= '2015-01-01'
+                                              where dat_message <= DATE_FORMAT(NOW(),'%Y-%m-%d')
                                                 and m.ind_enviado = 'N';");
 
             $result = $this->sql->execute();
