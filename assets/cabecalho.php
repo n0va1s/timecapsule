@@ -77,7 +77,8 @@
             email: true
           },
           date: {
-            required: true
+            required: true,
+            date: true
           },
           message: {
             required: true
@@ -92,7 +93,8 @@
             email: "O email não é válido"
           },
           date: {
-            required: "Informe a data"
+            required: "Informe a data",
+            date: "A data não é válida"
           },
           message: {
             required: "Informe a mensagem"

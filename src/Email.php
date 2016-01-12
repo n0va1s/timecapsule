@@ -1,96 +1,103 @@
 <?php
-/*
- * Copyright (c) 2015 Joao Paulo Cirino Silva de Novais <joaopaulonovais@gmail.com>
- */
 
-require './TimeCapsuleDAO.php';
+require 'TimeCapsuleDAO.php';
+require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
 class Email {
 
     private $timeCapsuleDAO;
-    
+    private $mail;
+
     public function __construct(){
         $this->timeCapsuleDAO = new TimeCapsuleDAO();
-        session_start();
+        $this->mail = new PHPMailer();
     }
 
-    public static function enviar() {
-        
-        $dat_envio = date("d/m/Y");
-        $hor_envio = date("H:i:s");
-        
-        $arquivo = "
-            <style type='text/css'>
-            body {
-            margin:0px;
-            font-family:Verdane;
-            font-size:12px;
-            color: #666666;
-            }
-            a{
-            color: #666666;
-            text-decoration: none;
-            }
-            a:hover {
-            color: #FF0000;
-            text-decoration: none;
-            }
-            </style>
-            <html>
-                <table width='510' border='1' cellpadding='1' cellspacing='1' bgcolor='#CCCCCC'>
-                    <tr>
-                      <td>
-            <tr>
-                         <td width='500'>Nome:$nome</td>
-                        </tr>
-                        <tr>
-                          <td width='320'>E-mail:<b>$email</b></td>
-               </tr>
-                <tr>
-                          <td width='320'>Telefone:<b>$telefone</b></td>
-                        </tr>
-               <tr>
-                          <td width='320'>Opções:$escolhas</td>
-                        </tr>
-                        <tr>
-                          <td width='320'>Mensagem:$nome</td>
-                        </tr>
-                    </td>
-                  </tr>  
-                  <tr>
-                    <td>Este e-mail foi enviado em <b>$data_envio</b> às <b>$hora_envio</b></td>
-                  </tr>
-                </table>
-            </html>
-        ";    
-        
-        // É necessário indicar que o formato do e-mail é html
-        $headers  = 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-        $headers .= 'From: $nome <$email>';
-        //$headers .= "Bcc: $EmailPadrao\r\n";
+    public function configurar(){
+      $mail->isSMTP();                                      // Set mailer to use SMTP
+      $mail->Host = 'smtp.capsuladotempo.net;localhost';    // Specify main and backup SMTP servers
+      $mail->SMTPAuth = true;                               // Enable SMTP authentication
+      $mail->Username = 'mensagem@capsuladotempo.net';      // SMTP username
+      $mail->Password = 'Bmx1cpoe';                           // SMTP password
+      $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+      $mail->Port = 587;                                    // TCP port to connect to
 
-        $mensagens = $this->timeCapsuleDAO->consultarParaEnvio();
-        
+      $mail->setFrom('mensagem@capsuladotempo.net', 'Cápsula do Tempo');
+      //$mail->addAddress('mensagem@capsuladotempo.net');               // Name is optional
+      $mail->addReplyTo('mensagem@capsuladotempo.net', 'Cápsula do Tempo');
+      //$mail->addCC('cc@example.com');
+      $mail->addBCC('jp.trabalho@gmail.com');
+
+      //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+      //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+      $mail->isHTML(true);                                  // Set email format to HTML
+      $mail->Subject = 'Abra a sua Cápsula do Tempo';
+      $mail->Body    = "<style type='text/css'>
+      body {
+        margin:0px;
+        font-family:Verdana;
+        font-size:12px;
+        color: #666666;
+      }
+      div {
+        padding: 0;
+        width: auto;
+      }
+      a{
+        color: blue;
+        text-decoration: none;
+      }
+      a:hover {
+        color: gray;
+        text-decoration: none;
+      }
+      </style>
+      <html>
+        <div>
+          <p>
+          Ol&aacute; ".$mensagem["nam_to_message"]." h&aacute; algum tempo voc&ecirc; mandou
+          uma mensagem para o seu EU do futuro. Pronto para conferir?
+          </p>
+          <p>
+          Esta foi a sua mensagem:<br />
+          ".$mensagem["txt_message"]."
+          </p>
+          <p>
+          Que seus sonhos se realizem e que voc&ecirc; fa&ccedil;a desse um mundo ainda melhor!
+          <br />
+          Um abra&ccedil;o da equipe da <a href=http://capsuladotempo.net>C&aacute;psula do Tempo</a>
+          </p>
+        </div>
+      </html>";
+      $mail->AltBody = "Olá ".$mensagem["nam_to_message"].", há algum tempo você mandou
+                        uma mensagem para o seu EU do futuro. Pronto para conferir?
+                        Esta foi a sua mensagem: ".$mensagem["txt_message"]."
+                        Que seus sonhos se realizem e que você façaa desse um mundo ainda melhor!
+                        Um abraço da equipe da Cápsula do Tempo";
+
+    }
+
+    public function enviar() {
+
+        $mensagens = $this->timeCapsuleDAO->consultarCapsulasParaEnvio();
+
         foreach ($mensagens as $mensagem) {
-            $emailenviado = mail($mensagem["email"],
-                            "Mensagem da Cápsula do Tempo...",
-                            $arquivo, 
-                            $headers);
-        }
-        
-        
-        if($emailenviado){
-        $mgm = "E-MAIL ENVIADO COM SUCESSO! <br> O link será enviado para o e-mail fornecido no formulário";
-        echo " <meta http-equiv='refresh' content='10;URL=contato.php'>";
-        } else {
-        $mgm = "ERRO AO ENVIAR E-MAIL!";
-        echo "";
+            $mail->addAddress($mensagem["eml_message"], $mensagem["nam_to_message"]);     // Add a recipient
+            if(!$mail->send()) {
+                echo "Messagem não enviada! Sequencial: ".$mensagem["seq_message"];
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            } else {
+                $this->timeCapsuleDAO->atualizarCapsulaEnviada($mensagem["seq_message"]);
+            }
         }
     }
-    
+
     public function __destruct(){
         $this->timeCapsuleDAO = NULL;
-        session_destroy();
+        $this->mail = NULL;
     }
 }
+//Envia os emails do dia
+$obj = new Email();
+$obj->configurar();
+$obj->enviar();

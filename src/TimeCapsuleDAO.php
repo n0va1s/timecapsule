@@ -35,25 +35,42 @@ class TimeCapsuleDAO {
 
             $result = $this->sql->execute();
        } catch (Exception $e) {
-            print "Ocorreu um erro ao tentar gravar a mensagem,tente novamente mais tarde.";
-            print $e->getMessage();
+            echo "Ocorreu um erro ao tentar gravar a mensagem,tente novamente mais tarde.";
+            echo $e->getMessage();
             $result = false;
         }
         return $result;
     }
-
-    public function consultarParaEnvio() {
+    //Consulta todas as mensagens a serem enviadas ate o dia de hoje
+    public function consultarCapsulasParaEnvio() {
         try {
             $this->sql = $this->conn->prepare("select *
                                                  from message m
                                               where dat_message <= DATE_FORMAT(NOW(),'%Y-%m-%d')
-                                                and m.ind_enviado = 'N';");
+                                                and m.ind_enviado = 'N'");
+
+            $this->sql->execute();
+            $result = $this->sql->fetchAll();
+
+        } catch (Exception $e) {
+            echo "Ocorreu um erro ao tentar consultar as mensagens a serem enviadas";
+            echo $e->getMessage();
+            $result = false;
+        }
+        return $result;
+    }
+    //Altera a situacao da capsula para enviada
+    public function atualizarCapsulaEnviada($seq_message) {
+        try {
+            $this->sql = $this->conn->prepare("update message
+                                                 set ind_enviado = 'S'
+                                               where seq_message = $seq_message");
 
             $result = $this->sql->execute();
 
         } catch (Exception $e) {
-            print "Ocorreu um erro ao tentar consultar as mensagens a serem enviadas";
-            print $e->getMessage();
+            echo "Nao foi possivel alterar a situacao 'S' para o sequencial".$seq_message;
+            echo $e->getMessage();
             $result = false;
         }
         return $result;
