@@ -61,7 +61,7 @@
   <script type="text/javascript">
   $(document).ready(function(){
       $("#date").mask("99/99/9999",{placeholder:"DD/MM/YYYY"});
-      $("#phone").mask("(99)?9999-9999");
+      $("#phone").mask("(99)9999?-9999");
 
       $("#btnVoltar").click(function() {
         history.back()
@@ -77,8 +77,7 @@
             email: true
           },
           date: {
-            required: true,
-            date: true
+            required: true
           },
           message: {
             required: true
@@ -93,8 +92,7 @@
             email: "O email não é válido"
           },
           date: {
-            required: "Informe a data",
-            date: "A data não é válida"
+            required: "Informe a data"
           },
           message: {
             required: "Informe a mensagem"
