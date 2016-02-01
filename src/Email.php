@@ -16,28 +16,24 @@ class Email {
     public function configurar(){
       $this->mail->isSMTP();                                      // Set mailer to use SMTP
       $this->mail->Host = 'r9-dallas.webserversystems.com';    // Specify main and backup SMTP servers
+      $this->mail->Port = 587;                                    // TCP port to connect to
+
       $this->mail->SMTPAuth = true;                               // Enable SMTP authentication
       $this->mail->Username = 'mensagem@capsuladotempo.net';      // SMTP username
       $this->mail->Password = 'Bmx1cpoe';                           // SMTP password
       $this->mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-      $this->mail->Port = 465;                                    // TCP port to connect to
 
-      $this->mail->setFrom('mensagem@capsuladotempo.net', 'Cápsula do Tempo');
-      //$this->mail->addAddress('mensagem@capsuladotempo.net');               // Name is optional
-      $this->mail->addReplyTo('mensagem@capsuladotempo.net', 'Cápsula do Tempo');
-      //$this->mail->addCC('cc@example.com');
+      $this->mail->setFrom('mensagem@capsuladotempo.net', 'C&aacute;psula do Tempo');
+      $this->mail->addReplyTo('mensagem@capsuladotempo.net', 'C&aacute;psula do Tempo');
       $this->mail->addBCC('jp.trabalho@gmail.com');
 
-      //$this->mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-      //$this->mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
       $this->mail->isHTML(true);                                  // Set email format to HTML
-      $this->mail->Subject = 'Chegou o dia de abrir a sua cápsula do tempo';
+      $this->mail->charset = "UTF-8";
+      $this->mail->Subject = 'Chegou o dia de abrir a sua c&aacute;psula do tempo';
     }
 
     public function enviar() {
-
         $mensagens = $this->timeCapsuleDAO->consultarCapsulasParaEnvio();
-
         foreach ($mensagens as $mensagem) {
             $this->mail->addAddress($mensagem["eml_message"], $mensagem["nam_to_message"]);     // Add a recipient
 
@@ -51,25 +47,26 @@ class Email {
                   <html>
                     <div>
                       <p>
-                      Ol&aacute; ".$mensagem["nam_to_message"]." h&aacute; algum tempo voc&ecirc; mandou
-                      uma mensagem para o seu EU do futuro. Pronto para conferir?
+                      Ol&aacute; ".utf8_decode($mensagem["nam_to_message"])." h&aacute; algum tempo "
+                      .utf8_decode($mensagem["nam_from_message"])."criou uma c&aacute;psula do tempo para ser aberta hoje.
+                      Pronto para conferir?
                       </p>
                       <p>
-                      Esta foi a sua mensagem:<br />
-                      ".$mensagem["txt_message"]."
+                      Esta foi a mensagem:<br />
+                      ".utf8_decode($mensagem["txt_message"])."
                       </p>
                       <p>
                       Que seus sonhos se realizem e que voc&ecirc; fa&ccedil;a desse um mundo ainda melhor!
                       <br />
-                      Um abra&ccedil;o da equipe da <a href=http://capsuladotempo.net>C&aacute;psula do Tempo</a>
                       </p>
+                      Um abra&ccedil;o da equipe da <a href=http://capsuladotempo.net>C&aacute;psula do Tempo</a>
                     </div>
                   </html>";
-            $this->mail->AltBody = "Olá ".$mensagem["nam_to_message"].", há algum tempo você mandou
-                              uma mensagem para o seu EU do futuro. Pronto para conferir?
-                              Esta foi a sua mensagem: ".$mensagem["txt_message"]."
-                              Que seus sonhos se realizem e que você façaa desse um mundo ainda melhor!
-                              Um abraço da equipe da Cápsula do Tempo";
+            $this->mail->AltBody = "Olá ".utf8_decode($mensagem["nam_to_message"]).", há algum tempo".utf8_decode($message["nam_from_message"]).
+                              "mandou uma mensagem para ser aberta hoje. Pronto para conferir?
+                              Esta foi a mensagem: ".utf8_decode($mensagem["txt_message"])."
+                              Que seus sonhos se realizem e que você faça desse um mundo ainda melhor!
+                              Um abraço da equipe da Cápsula do Tempo http://capsuladotempo.net";
             if(!$this->mail->send()) {
                 echo "Messagem não enviada! Sequencial: ".$mensagem["seq_message"];
                 echo ' - Erro: ' . $this->mail->ErrorInfo."\n";
