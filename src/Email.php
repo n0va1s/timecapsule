@@ -1,7 +1,7 @@
 <?php
 
 require 'TimeCapsuleDAO.php';
-require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+require '/home/capsdtempo/public_html/vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
 class Email {
 
@@ -16,7 +16,7 @@ class Email {
     public function configurar(){
       $this->mail->isSMTP();                                      // Set mailer to use SMTP
       $this->mail->Host = 'r9-dallas.webserversystems.com';    // Specify main and backup SMTP servers
-      $this->mail->Port = 587;                                    // TCP port to connect to
+      $this->mail->Port = 25;                                    // TCP port to connect to
 
       $this->mail->SMTPAuth = true;                               // Enable SMTP authentication
       $this->mail->Username = 'mensagem@capsuladotempo.net';      // SMTP username
@@ -47,8 +47,8 @@ class Email {
                   <html>
                     <div>
                       <p>
-                      Ol&aacute; ".utf8_decode($mensagem["nam_to_message"])." h&aacute; algum tempo "
-                      .utf8_decode($mensagem["nam_from_message"])."criou uma c&aacute;psula do tempo para ser aberta hoje.
+                      Ol&aacute; ".utf8_decode($mensagem["nam_to_message"]).", h&aacute; algum tempo "
+                      .utf8_decode($mensagem["nam_from_message"])." criou uma c&aacute;psula do tempo para ser aberta hoje.
                       Pronto para conferir?
                       </p>
                       <p>
@@ -62,16 +62,21 @@ class Email {
                       Um abra&ccedil;o da equipe da <a href=http://capsuladotempo.net>C&aacute;psula do Tempo</a>
                     </div>
                   </html>";
-            $this->mail->AltBody = "Olá ".utf8_decode($mensagem["nam_to_message"]).", há algum tempo".utf8_decode($message["nam_from_message"]).
-                              "mandou uma mensagem para ser aberta hoje. Pronto para conferir?
+            $this->mail->AltBody = "Olá ".utf8_decode($mensagem["nam_to_message"]).", há algum tempo ".utf8_decode($message["nam_from_message"]).
+                              " mandou uma mensagem para ser aberta hoje. Pronto para conferir?
                               Esta foi a mensagem: ".utf8_decode($mensagem["txt_message"])."
-                              Que seus sonhos se realizem e que você faça desse um mundo ainda melhor!
+                               Que seus sonhos se realizem e que você faça desse um mundo ainda melhor!
                               Um abraço da equipe da Cápsula do Tempo http://capsuladotempo.net";
             if(!$this->mail->send()) {
                 echo "Messagem não enviada! Sequencial: ".$mensagem["seq_message"];
-                echo ' - Erro: ' . $this->mail->ErrorInfo."\n";
-            } else {
-                $this->timeCapsuleDAO->atualizarCapsulaEnviada($mensagem["seq_message"]);
+                echo " - Erro: ". $this->mail->ErrorInfo."\n";
+            } else { //Mensagem enviada
+                //Atualizar a mensagem para enviada
+                if($this->timeCapsuleDAO->atualizarCapsulaEnviada($mensagem["seq_message"])){
+                  echo "Cápsula enviada! Sequencial: ".$mensagem["seq_message"];
+                } else {
+                  echo "Erro ao atualizar a mensagem para enviada! Sequencial: ".$mensagem["seq_message"];
+                }
             }
         }
     }

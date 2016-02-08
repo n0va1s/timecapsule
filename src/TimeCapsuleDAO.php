@@ -62,14 +62,12 @@ class TimeCapsuleDAO {
     //Altera a situacao da capsula para enviada
     public function atualizarCapsulaEnviada($seq_message) {
         try {
-            $this->sql = $this->conn->prepare("update message
-                                                 set ind_enviado = 'S'
-                                               where seq_message = $seq_message");
-
+            $this->sql = $this->conn->prepare("update message set ind_enviado = 'S'
+                                               where seq_message = ".$seq_message);
             $result = $this->sql->execute();
 
         } catch (Exception $e) {
-            echo "Nao foi possivel alterar a situacao 'S' para o sequencial".$seq_message;
+            echo "Nao foi possivel alterar a situação do sequencial - ".$seq_message;
             echo $e->getMessage();
             $result = false;
         }
