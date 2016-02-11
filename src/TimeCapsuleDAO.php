@@ -37,7 +37,7 @@ class TimeCapsuleDAO {
        } catch (Exception $e) {
             echo "Ocorreu um erro ao tentar gravar a mensagem,tente novamente mais tarde.";
             echo $e->getMessage();
-            $result = false;
+            $result = 0;
         }
         return $result;
     }
@@ -55,7 +55,7 @@ class TimeCapsuleDAO {
         } catch (Exception $e) {
             echo "Ocorreu um erro ao tentar consultar as mensagens a serem enviadas";
             echo $e->getMessage();
-            $result = false;
+            $result = 0;
         }
         return $result;
     }
@@ -69,7 +69,7 @@ class TimeCapsuleDAO {
         } catch (Exception $e) {
             echo "Nao foi possivel alterar a situação do sequencial - ".$seq_message;
             echo $e->getMessage();
-            $result = false;
+            $result = 0;
         }
         return $result;
     }

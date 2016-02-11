@@ -28,8 +28,8 @@ class Email {
       $this->mail->addBCC('jp.trabalho@gmail.com');
 
       $this->mail->isHTML(true);                                  // Set email format to HTML
-      $this->mail->charset = "UTF-8";
-      $this->mail->Subject = 'Chegou o dia de abrir a sua c&aacute;psula do tempo';
+      //$this->mail->charset = "UTF-8";
+      $this->mail->Subject = 'Chegou o dia de abrir a sua cápsula do tempo';
     }
 
     public function enviar() {
@@ -72,10 +72,11 @@ class Email {
                 echo " - Erro: ". $this->mail->ErrorInfo."\n";
             } else { //Mensagem enviada
                 //Atualizar a mensagem para enviada
-                if($this->timeCapsuleDAO->atualizarCapsulaEnviada($mensagem["seq_message"])){
-                  echo "Cápsula enviada! Sequencial: ".$mensagem["seq_message"];
+                $atualizada = $this->timeCapsuleDAO->atualizarCapsulaEnviada($mensagem["seq_message"]);
+                if($atualizada){
+                  echo "Cápsula enviada! Sequencial: ".$mensagem["seq_message"]."\n";
                 } else {
-                  echo "Erro ao atualizar a mensagem para enviada! Sequencial: ".$mensagem["seq_message"];
+                  echo "Erro ao atualizar a mensagem para enviada! Sequencial: ".$mensagem["seq_message"]."\n";
                 }
             }
         }
