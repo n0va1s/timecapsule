@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 require_once 'Conexao.php';
 
@@ -33,13 +33,11 @@ class TimeCapsuleDAO {
             $this->sql->bindValue(":tel_message", $model->getPhone());
             $this->sql->bindValue(":txt_message", $model->getMessage());
 
-            $result = $this->sql->execute();
+            return $this->sql->execute();
        } catch (Exception $e) {
             echo "Ocorreu um erro ao tentar gravar a mensagem,tente novamente mais tarde.";
             echo $e->getMessage();
-            $result = 0;
         }
-        return $result;
     }
     //Consulta todas as mensagens a serem enviadas ate o dia de hoje
     public function consultarCapsulasParaEnvio() {
@@ -50,28 +48,25 @@ class TimeCapsuleDAO {
                                                 and m.ind_enviado = 'N'");
 
             $this->sql->execute();
-            $result = $this->sql->fetchAll();
+            return $this->sql->fetchAll();
 
         } catch (Exception $e) {
             echo "Ocorreu um erro ao tentar consultar as mensagens a serem enviadas";
             echo $e->getMessage();
-            $result = 0;
         }
-        return $result;
     }
     //Altera a situacao da capsula para enviada
     public function atualizarCapsulaEnviada($seq_message) {
         try {
             $this->sql = $this->conn->prepare("update message set ind_enviado = 'S'
-                                               where seq_message = ".$seq_message);
-            $result = $this->sql->execute();
+                                               where seq_message = :seq_message");
+            $this->sql->bindValue(":seq_message", $seq_message);
+            return $this->sql->execute();
 
         } catch (Exception $e) {
             echo "Nao foi possivel alterar a situação do sequencial - ".$seq_message;
             echo $e->getMessage();
-            $result = 0;
         }
-        return $result;
     }
 
     function __destruct() {

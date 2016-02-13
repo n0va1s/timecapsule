@@ -28,8 +28,8 @@ class Email {
       $this->mail->addBCC('jp.trabalho@gmail.com');
 
       $this->mail->isHTML(true);                                  // Set email format to HTML
-      //$this->mail->charset = "UTF-8";
-      $this->mail->Subject = 'Chegou o dia de abrir a sua cápsula do tempo';
+      $this->mail->charset = "utf-8";
+      $this->mail->Subject = "Chegou o dia de abrir a sua cápsula do tempo";
     }
 
     public function enviar() {
@@ -37,31 +37,36 @@ class Email {
         foreach ($mensagens as $mensagem) {
             $this->mail->addAddress($mensagem["eml_message"], $mensagem["nam_to_message"]);     // Add a recipient
 
-            $this->mail->Body = "
-                  <style type='text/css'>
-                  body {margin:0px;font-family:Verdana;font-size:12px;color: #666666;}
-                  div {padding: 0;width: auto;}
-                  a{color: blue;text-decoration: none;}
-                  a:hover {color: gray;text-decoration: none;}
-                  </style>
+            $this->mail->Body = '
                   <html>
-                    <div>
-                      <p>
-                      Ol&aacute; ".utf8_decode($mensagem["nam_to_message"]).", h&aacute; algum tempo "
-                      .utf8_decode($mensagem["nam_from_message"])." criou uma c&aacute;psula do tempo para ser aberta hoje.
-                      Pronto para conferir?
-                      </p>
-                      <p>
-                      Esta foi a mensagem:<br />
-                      ".utf8_decode($mensagem["txt_message"])."
-                      </p>
-                      <p>
-                      Que seus sonhos se realizem e que voc&ecirc; fa&ccedil;a desse um mundo ainda melhor!
-                      <br />
-                      </p>
-                      Um abra&ccedil;o da equipe da <a href=http://capsuladotempo.net>C&aacute;psula do Tempo</a>
-                    </div>
-                  </html>";
+                    <head>
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                    <style type="text/css">
+                      body {margin:0px;font-family:Verdana;font-size:12px;color: #666666;}
+                      div {padding: 0;width: auto;}
+                      a{color: blue;text-decoration: none;}
+                      a:hover {color: gray;text-decoration: none;}
+                    </style>
+                    </head>
+                    <body>
+                      <div>
+                        <p>
+                        Ol&aacute; '.utf8_decode($mensagem["nam_to_message"]).', h&aacute; algum tempo '
+                        .utf8_decode($mensagem["nam_from_message"]).' criou uma c&aacute;psula do tempo para ser aberta hoje.
+                        Pronto para conferir?
+                        </p>
+                        <p>
+                        Esta foi a mensagem:<br />
+                        '.utf8_decode($mensagem["txt_message"]).'
+                        </p>
+                        <p>
+                        Que seus sonhos se realizem e que voc&ecirc; fa&ccedil;a desse um mundo ainda melhor!
+                        <br />
+                        </p>
+                        Um abra&ccedil;o da equipe da <a href=http://capsuladotempo.net>C&aacute;psula do Tempo</a>
+                      </div>
+                    </body>
+                  </html>';
             $this->mail->AltBody = "Olá ".utf8_decode($mensagem["nam_to_message"]).", há algum tempo ".utf8_decode($message["nam_from_message"]).
                               " mandou uma mensagem para ser aberta hoje. Pronto para conferir?
                               Esta foi a mensagem: ".utf8_decode($mensagem["txt_message"])."
