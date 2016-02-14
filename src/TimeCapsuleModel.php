@@ -3,6 +3,7 @@
 require 'TimeCapsuleDAO.php';
 
 class TimeCapsuleModel {
+    private $seq;
     private $to;
     private $from;
     private $phone;
@@ -14,14 +15,18 @@ class TimeCapsuleModel {
         $this->timeCapsuleDAO = new TimeCapsuleDAO();
     }
 
+    public function setSeq($seq) {
+        $this->seq = $seq;
+    }
+
     public function setTo($to) {
 //TODO: Mover para uma classe Validator
 //TODO: isRequired, isNumeric, isText, isPhone, isEmail, isValid, isDate
-        $this->to = utf8_encode($to);
+        $this->to = $to;
     }
 
     public function setFrom($from) {
-        $this->from = utf8_encode($from);
+        $this->from = $from;
     }
 
     public function setPhone($phone) {
@@ -33,15 +38,23 @@ class TimeCapsuleModel {
     }
 
     public function setDate($date) {
-        $dia = substr($date, 0,2);
-        $mes = substr($date, 3,2);
-        $ano = substr($date, 6,4);
-        
-        $this->date = date_format(date_create($ano."-".$mes."-".$dia),"Y-m-d");
+       if(substr_count($date,"/") == 3){
+         list($dia, $mes, $ano) = explode("/", $date);
+         //$dia = substr($date, 0,2);
+         //$mes = substr($date, 3,2);
+         //$ano = substr($date, 6,4);
+         $this->date = date_format(date_create($ano."-".$mes."-".$dia),"Y-m-d");
+       } else {
+         $this->date = $date;
+       }
     }
 
     public function setMessage($message) {
-        $this->message = utf8_encode($message);
+        $this->message = $message;
+    }
+
+    public function getSeq(){
+        return $this->seq;
     }
 
     public function getTo(){
@@ -68,8 +81,16 @@ class TimeCapsuleModel {
     }
 
     public function gravar() {
-        $this->timeCapsuleDAO->inserir($this);
+        if(!empty($this->getSeq())){
+           $this->timeCapsuleDAO->alterar($this);
+        } else {
+           $this->timeCapsuleDAO->inserir($this);
+        }
         return true;
+    }
+
+    public function consultar() {
+        return $this->timeCapsuleDAO->listar();
     }
 
     function __destruct() {
