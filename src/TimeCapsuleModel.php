@@ -38,14 +38,14 @@ class TimeCapsuleModel {
     }
 
     public function setDate($date) {
-       if(substr_count($date,"/") == 3){
+       if(substr_count($date,"/") == 2){
          list($dia, $mes, $ano) = explode("/", $date);
          //$dia = substr($date, 0,2);
          //$mes = substr($date, 3,2);
          //$ano = substr($date, 6,4);
          $this->date = date_format(date_create($ano."-".$mes."-".$dia),"Y-m-d");
        } else {
-         $this->date = $date;
+         $this->date = NULL;
        }
     }
 
